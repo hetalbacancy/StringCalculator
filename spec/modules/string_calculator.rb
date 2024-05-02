@@ -40,4 +40,27 @@ describe StringCalculator, "#add" do
       expect("20,10,20").to add_to(50)
     end
   end
+
+  # it "supports new line as a delimeter" do
+  #   expect("1\n2").to add_to(3)
+  # end
+
+  it "supports mixed a delimeter" do
+    expect("1\n2, 3").to add_to(6)
+  end
+
+  # it "supports other a delimeter" do
+  #   expect("//;\n1;2").to add_to(3)
+  # end
+
+  context "negative niumbers" do
+    it "raise an exception if finds negative numbers" do
+      lambda {"-1".extend(StringCalculator).add}.should raise_error
+    end
+
+    it "include negative numbers in message" do
+      lambda {"-1,25,-42".extend(StringCalculator).add}.should raise_error("Negatives not allowed: -1, -42")
+    end
+    
+  end
 end
