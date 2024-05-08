@@ -1,7 +1,6 @@
 module StringCalculator
   def add
-    return 0 if empty?
-    return to_i unless include?(',')
+    raise_if_input_is_invalid
     raise_if_negative_number
     return numbers.sum
   end
@@ -13,11 +12,17 @@ module StringCalculator
     end
   end
 
+  def raise_if_input_is_invalid
+    if split(delimeter).last == " \n"
+      raise "Input is invalid"
+    end
+  end
+
   def numbers
     gsub("\n", delimeter).split(delimeter).map { |n| n.to_i }
   end
 
   def delimeter
-    ','
+    @delimeter ||= self[0,2] == "//" ? delimeter = self[2,1] : ','
   end
 end

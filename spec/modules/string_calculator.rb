@@ -16,14 +16,14 @@ describe StringCalculator, "#add" do
       expect("0").to add_to(0)
     end
 
-    it "return 3 for 3" do
-      expect("3").to add_to(3)
+    it "return 1 for 1" do
+      expect("1").to add_to(1)
     end
   end
 
   context "2 Numbers" do
-    it "returns 5 for 2,3" do
-      expect("2,3").to add_to(5)
+    it "returns 6 for 1,5" do
+      expect("1,5").to add_to(6)
     end
 
     it "returns 12 for 8,4" do
@@ -41,17 +41,21 @@ describe StringCalculator, "#add" do
     end
   end
 
-  # it "supports new line as a delimeter" do
-  #   expect("1\n2").to add_to(3)
-  # end
+  it "supports new line as a delimeter" do
+    expect("1\n2").to add_to(3)
+  end
 
   it "supports mixed a delimeter" do
     expect("1\n2, 3").to add_to(6)
   end
 
-  # it "supports other a delimeter" do
-  #   expect("//;\n1;2").to add_to(3)
-  # end
+  it "invalid input" do
+    lambda {"1, \n".extend(StringCalculator).add}.should raise_error("Input is invalid")
+  end
+
+  it "supports other a delimeter" do
+    expect("//;\n1;2").to add_to(3)
+  end
 
   context "negative niumbers" do
     it "raise an exception if finds negative numbers" do
